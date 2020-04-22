@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-content">
+                <input type="hidden" name="type" value="send" />
+                <div class="row">
+                    <div class="col-md-6" style="position:relative">
+                        <textarea id="write"></textarea>
+                        <span id="save" data-toggle="modal" data-target="#themeSave"><i class="fas fa-save"></i></span>
+                    </div>
+                    <div class="col-md-6" style="position:relative">
+                        <iframe id="result"></iframe>
+                        <span id="fs" data-toggle="modal" data-target="#fullScreen"><i class="far fa-eye"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Full Screen -->
+<div class="modal fade" id="fullScreen" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <iframe id="full"></iframe>
+  </div>
+</div>
+</div>
+
+<!-- Modal Şablon Kayıt -->
+<div class="modal fade" id="themeSave" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tema Kaydet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="theme-save" method="post">
+      <input type="hidden" name="type" value="save" />
+      <textarea name="theme" style="display:none;"></textarea>
+      <div class="modal-body">
+        <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Tema Adı</div>
+                </div>
+                <input type="text" name="name" class="form-control" placeholder="Tema Adı Giriniz">
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">Tema Açıklama</div>
+                </div>
+                <input type="text" name="desc" class="form-control" placeholder="Tema Açıklaması Giriniz">
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+        <input type="submit" name="button" class="btn btn-primary"  value="Kaydet" />
+      </div>
+      </form>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+var doctype = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+
+</body>
+</html>`;
+
+$(document).ready(function(){
+    $('#write').val(doctype)
+    $('#write').on('keyup',function(e){
+        $('#result').attr('srcdoc',e.target.value)
+        $('#full').attr('srcdoc',e.target.value)
+    })
+    $('#full').css('height',$(document).outerHeight()-250+"px")
+    $('#save').on('click',function(){
+        $('textarea[name=theme]').val($('#write').val())
+    })
+});
+</script>
+
+<style>
+    #write{width:100%;resize: none; overflow: scroll; min-height: 600px; background: #333; color:#eee}
+    #result{width:100%; min-height: 600px; overflow-x: hidden; overflow-y: scroll}
+    #full{width:100%; overflow-x: hidden; overflow-y: scroll}
+    #fs, #save{position:absolute; top:15px; right:40px; font-size: 30px; color:coral; display:block;}
+    #fs:hover, #save:hover{color:red; cursor:pointer}
+    .input-group-text{width: 150px}
+</style>
