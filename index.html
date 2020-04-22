@@ -1,0 +1,18 @@
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="mail-tab" data-toggle="tab" href="#mail" role="tab" aria-controls="mail" aria-selected="true">Mail Gönder</a>
+    <a class="nav-item nav-link" id="theme-list-tab" data-toggle="tab" href="#theme-list" role="tab" aria-controls="theme-list" aria-selected="false">Şablon Listesi</a>
+    <a class="nav-item nav-link" id="theme-create-tab" data-toggle="tab" href="#theme-create" role="tab" aria-controls="theme-create" aria-selected="false">Şablon Oluştur</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="mail" role="tabpanel" aria-labelledby="mail-tab">
+    <?php echo $this->element('../Admin/toplumail_send'); ?>
+  </div>
+  <div class="tab-pane fade" id="theme-list" role="tabpanel" aria-labelledby="theme-list-tab">
+    <?php echo $this->element('../Admin/toplumail_themes'); ?>
+  </div>
+  <div class="tab-pane fade" id="theme-create" role="tabpanel" aria-labelledby="theme-create-tab">
+    <?php echo $this->element('../Admin/toplumail_theme_create'); ?>
+  </div>
+</div>
