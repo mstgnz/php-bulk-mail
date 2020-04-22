@@ -1,0 +1,64 @@
+<div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <?php foreach ($templates as $k => $v) { ?>
+    <div class="col-md-4 cards">
+        <div class="block-content block-content-full theme">
+            <div class="text-center">
+                <div class="font-size-h4 font-w600"><?php echo $v["et"]["template_name"]; ?></div>
+                <div class="text-muted"><?php echo $v["et"]["template_text"]; ?></div>
+                <span class="detail">
+                    <span><a href="javascript:;" class="preview" data-content="<?php echo html_entity_decode($v['et']['template_html'], ENT_QUOTES,"UTF-8"); ?>"><i class="far fa-eye"></i></a></span>
+                    <span><a href="javascript:;" class="update" data-id="<?php echo $v["et"]["template_id"]; ?>" data-name="<?php echo $v["et"]["template_name"]; ?>" data-desc="<?php echo $v["et"]["template_text"]; ?>" data-content="<?php echo html_entity_decode($v['et']['template_html'], ENT_QUOTES,"UTF-8"); ?>"><i class="fas fa-edit"></i></a></span>
+                    <span><a href="/admin/toplumail?del=<?php echo $v["et"]["template_id"]; ?>"><i class="fas fa-trash-alt"></i></a></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+
+<!-- Modal Full Screen -->
+<div class="modal fade" id="preview" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <iframe id="preview-content"></iframe>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#preview-content').css('height',$(document).outerHeight()-250+"px")
+    $('.preview').on('click',function(){
+        var content = $(this).attr("data-content")
+        $('#preview-content').attr('srcdoc',content)
+        $('#preview').modal()
+    });
+    $('.update').on('click',function(){
+        var id = $(this).attr("data-id");
+        $('.nav-tabs a[href="#theme-create"]').tab('show');
+        $('#theme-create-tab').html("Şablon Güncelle")
+        $('#result').attr('srcdoc',$(this).attr("data-content"))
+        $('#full').attr('srcdoc',$(this).attr("data-content"))
+        $('#write').val($(this).attr("data-content"))
+        $('input[name=name]').val($(this).attr("data-name"))
+        $('input[name=desc]').val($(this).attr("data-desc"))
+        $('input[type=submit]').val("Güncelle")
+        $('#theme-save').append('<input type="hidden" name="id" value="'+id+'" />')
+    })
+});
+</script>
+
+<style>
+#content{max-height: 300px; overflow: hidden }
+.theme{background:#fff; cursor:pointer}
+.theme:hover{
+    -webkit-box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.55);
+    -moz-box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.55);
+    box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.55);
+}
+.detail{position:absolute; top:15px; right:40px; font-size: 30px; color:coral;font-size:14px; display: none}
+.detail span{display: block}
+.cards:hover .detail{display:block}
+.detail span:hover{color:red}
+</style>
+
